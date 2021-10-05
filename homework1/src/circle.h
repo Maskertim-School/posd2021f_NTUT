@@ -8,11 +8,9 @@ using namespace std;
 
 class Circle : public Shape {
 public:
-    Circle(double radius) {
+    Circle(double radius): _radius(radius) {
         if(radius <= 0){
             throw std::string ("This is not a circle.");
-        }else{
-            _radius = radius;
         }
      }
 

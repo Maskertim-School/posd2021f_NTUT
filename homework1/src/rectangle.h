@@ -9,12 +9,9 @@ using namespace std;
 
 class Rectangle : public Shape {
 public: 
-    Rectangle(double length, double width) { 
+    Rectangle(double length, double width): _length(length),_width(width) { 
         if(length <= 0 || width <= 0){
             throw std::string ("This is not rectangle.");
-        }else{
-            _length = length;
-            _width = width;
         }
     }
 

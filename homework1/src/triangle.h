@@ -12,9 +12,6 @@ public:
     Triangle(TwoDimensionalVector vec1, TwoDimensionalVector vec2): _vec1(vec1),_vec2(vec2){
         if(vec1.cross(vec2)==0){
             throw string ("This is not a triangle.");
-        }else{
-            _vec1 = vec1;
-            _vec2 = vec2;
         }
     }
 
