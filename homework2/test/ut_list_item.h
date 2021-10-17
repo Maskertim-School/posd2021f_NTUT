@@ -14,6 +14,7 @@ TEST(CaseListItem, ExceptionAdd){
     ListItem listitem("listitem 1");
     try{
         listitem.add(new ListItem("listitem 2"));
+        FAIL(); // if not throw exceptions, the test is error
     }catch(std::string ex){
         ASSERT_EQ(ex, "not have add() function");
     }

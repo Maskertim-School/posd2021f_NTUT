@@ -4,9 +4,13 @@
 #include <iostream>
 
 
-TEST(CaseParagraph, GetTextAndLevel){
+TEST(CaseParagraph, GetText){
     Paragraph paragraph(1, "paragraph 1");
     ASSERT_EQ(paragraph.getText(), "# paragraph 1\n");
+};
+
+TEST(CaseParagraph, GetLevel){
+    Paragraph paragraph(1, "paragraph 1");
     ASSERT_EQ(paragraph.getLevel(), 1);
 };
 
@@ -71,6 +75,7 @@ TEST(CaseParagraph, ExceptionLevelOfParagraph){
         paragraph1_1->add(listitem3);
         // need to throw exceptions
         paragraph1_1->add(paragraph1);
+        FAIL(); // if not throw exceptions, the test is error
     }catch(std::string ex){
         ASSERT_EQ("low level can't be added in high level", ex);
     }
@@ -79,6 +84,7 @@ TEST(CaseParagraph, ExceptionLevelOfParagraph){
 TEST(CaseParagraph, ExceptionMorethan6){
     try{
         Paragraph paragraph(7, "paragraph 1");
+        FAIL(); // if not throw exceptions, the test is error
     }catch(std::string ex){
         ASSERT_EQ(ex, "not in the range from 1 to 6");
     }
@@ -87,6 +93,7 @@ TEST(CaseParagraph, ExceptionMorethan6){
 TEST(CaseParagraph, ExceptionLessThan1){
     try{
         Paragraph paragraph(0, "paragraph 1");
+        FAIL(); // if not throw exceptions, the test is error
     }catch(std::string ex){
         ASSERT_EQ(ex, "not in the range from 1 to 6");
     }

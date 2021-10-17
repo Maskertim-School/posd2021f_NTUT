@@ -31,9 +31,13 @@ class Paragraph : public Article {
             // if only paragraph
             return _alltext;
         }else{
-            // iterates other components
-            for(int i=0; i < _elements.size(); i++){
-                _alltext += _elements[i]->getText()+"\n";
+            /* iterates other components old version */
+            // for(int i=0; i < _elements.size(); i++){
+            //     _alltext += _elements[i]->getText()+"\n";
+            // }
+            /* iterates other components by 'auto' */
+            for(auto element: _elements){
+                _alltext += element->getText()+"\n";
             }
         }
         return _alltext.erase(_alltext.size()-1);
