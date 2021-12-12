@@ -20,7 +20,7 @@ TEST(CaseShapeInfoVisitor, Creation){
 TEST(CaseShapeInfoVisitor, VisitCircle){
     Shape* circle = new Circle(5.0);
     ShapeInfoVisitor* sv = new ShapeInfoVisitor();
-    circle->accept(sv);
+    sv->visitCircle(dynamic_cast<Circle*>(circle));
     // Expected
     ASSERT_EQ(sv->getResult(), "Circle (5.00)\n");
 
@@ -31,7 +31,7 @@ TEST(CaseShapeInfoVisitor, VisitCircle){
 TEST(CaseShapeInfoVisitor, VisitorRectangle){
     Shape* rectangle = new Rectangle(2.0, 3.0);
     ShapeInfoVisitor* sv = new ShapeInfoVisitor();
-    rectangle->accept(sv);
+    sv->visitRectangle(dynamic_cast<Rectangle*>(rectangle));
     // Expected
     ASSERT_EQ(sv->getResult(), "Rectangle (2.00 3.00)\n");
 
@@ -44,7 +44,7 @@ TEST(CaseShapeInfoVisitor, VisitorTriangle){
     TwoDimensionalVector t2(2.0, 3.0);
     Shape* triangle = new Triangle(t1, t2);
     ShapeInfoVisitor* sv = new ShapeInfoVisitor();
-    triangle->accept(sv);
+    sv->visitTriangle(dynamic_cast<Triangle*>(triangle));
     // Expected
     ASSERT_EQ(sv->getResult(), "Triangle ([1.00,2.00] [2.00,3.00])\n");
 
@@ -53,9 +53,9 @@ TEST(CaseShapeInfoVisitor, VisitorTriangle){
 }
 
 TEST(CaseShapeInfoVisitor, VisitorCompoundShapeWithoutElement){
-    CompoundShape* cs1 = new CompoundShape();
+    Shape* cs1 = new CompoundShape();
     ShapeInfoVisitor visitor;
-    cs1->accept(&visitor);
+    visitor.visitCompoundShape(dynamic_cast<CompoundShape*>(cs1));
     // Expected
     ASSERT_EQ(visitor.getResult(), "CompoundShape {\n}\n");
 
@@ -63,16 +63,16 @@ TEST(CaseShapeInfoVisitor, VisitorCompoundShapeWithoutElement){
 }
 
 TEST(CaseShapeInfoVisitor, VisitorCompoundShape){
-    CompoundShape* cs1 = new CompoundShape();
+    Shape* cs1 = new CompoundShape();
     cs1->addShape(new Circle(1.1));
     cs1->addShape(new Rectangle(3.14 ,4));
     
-    CompoundShape* cs2 = new CompoundShape();
+    Shape* cs2 = new CompoundShape();
     cs2->addShape(new Circle(12.34567));
     cs2->addShape(cs1);
     
     ShapeInfoVisitor visitor;
-    cs2->accept(&visitor);
+    visitor.visitCompoundShape(dynamic_cast<CompoundShape*>(cs2));
 
     // Expected
     std::string answer = "CompoundShape {\n"
@@ -84,5 +84,6 @@ TEST(CaseShapeInfoVisitor, VisitorCompoundShape){
                     "}\n";
     ASSERT_EQ(visitor.getResult(), answer);
 
+    // cs1 will delete by cs2 deconstructor
     delete cs2;
 }
