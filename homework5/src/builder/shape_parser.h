@@ -26,6 +26,7 @@ public:
 
     ~ShapeParser() {
         delete scanner;
+        delete builder;
     }
 
     void parse() {
