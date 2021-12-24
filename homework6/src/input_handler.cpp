@@ -3,7 +3,16 @@
 void InputHandler::handle() {
     int instruction = 0;
     printEditorInstructions();
-    std::cin >> instruction;
+    std::string checkInput;
+    std::cin >> checkInput;
+    // check the input is numerical or not
+    while(!isNumber(checkInput)) {
+        std::cout << "Invalid instruction. Please try again.\n";
+        printEditorInstructions();
+        std::cin >> checkInput;
+    }
+
+    instruction = std::stoi(checkInput);
     handleEditorInstructions(instruction);
 }
 
@@ -128,9 +137,18 @@ void InputHandler::printCompoundInstructions() {
                             "4. 'add compound': to add a compound\n"
                             "5. 'exit': to exit the program\n";
     std::cout << question;
-    int instuction;
-    std::cin >> instuction;
-    handleCompoundInstructions(instuction);
+    int instruction;
+    std::string checkInput;
+    std::cin >> checkInput;
+    // check the input is numerical or not
+    while(!isNumber(checkInput)) {
+        std::cout << "Invalid instruction. Please try again.\n";
+        std::cout << question;
+        std::cin >> checkInput;
+    }
+
+    instruction = std::stoi(checkInput);
+    handleCompoundInstructions(instruction);
 }
 
 void InputHandler::handleCompoundInstructions(int instruction) {
@@ -179,3 +197,9 @@ void InputHandler::addCompound() {
     builder->buildCompoundBegin();
 }
 
+bool isNumber(const std::string& str){
+    for(char const &c : str){
+        if(std::isdigit(c) == 0) return false;
+    }
+    return true;
+}

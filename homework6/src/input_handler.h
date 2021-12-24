@@ -26,3 +26,5 @@ class InputHandler {
     ShapeBuilder* builder = ShapeBuilder::getInstance();
     bool isContinued = true;
 };
+
+bool isNumber(const std::string& str);
