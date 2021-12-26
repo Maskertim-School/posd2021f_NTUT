@@ -172,16 +172,18 @@ void InputHandler::handleCompoundInstructions(int instruction) {
     case 4:
         addCompound();
         isContinued = true;
+        layer += 1;
         printCompoundInstructions();
         break;
     case 5:
         builder->buildCompoundEnd();
+        layer -= 1;
         if(!isContinued){
             std::cout << "Compound added.\n";
             std::cout << "Finish to add a compound shape.\n";
         }else{
             std::cout << "Compound added.\n";
-            isContinued = false;
+            if(layer==0) isContinued = false;
             printCompoundInstructions();
         }
         break;
