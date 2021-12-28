@@ -46,6 +46,15 @@ TEST_F(ParagraphTest, LevelGreaterThan6){
     }
 }
 
+TEST_F(ParagraphTest, CreateThrowsLevelLessThan1){
+    try{
+        Article* px = new Paragraph(-1, "fault");
+        FAIL();
+    }catch(std::string ex){
+        ASSERT_EQ(ex, "This level is not allowed.");
+    }
+}
+
 TEST_F(ParagraphTest, AddThrowsIfGreaterOrEqualLevel){
     Article* p2 = new Paragraph(2, "two");
     try{
@@ -55,4 +64,8 @@ TEST_F(ParagraphTest, AddThrowsIfGreaterOrEqualLevel){
         ASSERT_EQ(ex, "Level is greater or equal. That can't be added.");
     }
     delete p2;
+}
+
+TEST_F(ParagraphTest, CreateIteratorShouldBeCompoundIterator){
+    ASSERT_TRUE(typeid(*p->createIterator())== typeid(CompoundIterator<std::list<Article*>::iterator>));
 }

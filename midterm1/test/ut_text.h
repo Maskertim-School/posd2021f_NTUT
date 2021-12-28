@@ -47,3 +47,7 @@ TEST_F(TextTest, AddThrowsException){
     }
     delete t2;
 }
+
+TEST_F(TextTest, CreateIteratorShouldBeNullIterator){
+    ASSERT_TRUE(typeid(*text->createIterator())== typeid(NullIterator));
+}

@@ -47,3 +47,7 @@ TEST_F(ListItemTest, AddThrowsException){
     }
     delete l2;
 }
+
+TEST_F(ListItemTest, CreateIteratorShouldBeNullIterator){
+    ASSERT_TRUE(typeid(*listItem->createIterator())== typeid(NullIterator));
+}
